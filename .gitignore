@@ -1,2 +1,50 @@
 /target
 
+# General development files
+/target/          # Rust build output directory
+**/*.rs.bk        # Backup files from editors
+*.swp             # Vim swap files
+*.swo             # Vim swap files
+.DS_Store         # macOS metadata
+.env              # Environment variables
+.env.test
+.env.local
+
+# IDE specific files
+.vscode/          # VSCode config
+.idea/            # JetBrains IDE config
+*.iml
+
+# Rust specific
+Cargo.lock        # For libraries, you might commit this, but for apps, usually ignore
+**/debug/         # Debug builds
+**/release/       # Release builds (unless you want to track them)
+
+# Blockchain specific
+/data/            # Local blockchain data storage
+/chaindata/       # Alternative common name for blockchain storage
+/wallet/          # If you store any wallet files locally
+*.bin             # Binary data files
+*.dat             # Common data file extension
+
+# Logs
+*.log
+/logs/
+
+# Test coverage
+/coverage/
+
+# Build output
+**/*.o
+**/*.so
+**/*.dylib
+**/*.a
+
+# Documentation
+/doc/
+/docs/_build/
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
