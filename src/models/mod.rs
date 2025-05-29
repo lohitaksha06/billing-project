@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use borsh::{BorshSerialize, BorshDeserialize};
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct Receipt {
     pub id: String,           // Unique identifier (will be hash)
     pub items: Vec<Item>,     // Purchased items
@@ -9,7 +10,7 @@ pub struct Receipt {
     pub timestamp: i64,       // Unix timestamp
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct Item {
     pub name: String,
     pub price: f64,

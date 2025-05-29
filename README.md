@@ -1,59 +1,122 @@
-# ChainReceipt - Blockchain-Based Customer Billing & Purchase Tracking System
+## **Project Overview: ChainReceipt**
 
-*A decentralized, tamper-proof system for tracking purchases and managing receipts.*
+This is a **blockchain-based billing and receipt tracking system** called "ChainReceipt" that provides a decentralized, tamper-proof way to manage customer purchases and receipts. The project combines traditional web APIs with blockchain technology for immutable record-keeping.
 
----
+## **What it does:**
 
-## 🚀 Overview
+1. **Creates Digital Receipts**: Stores purchase records (items, prices, store info, timestamps) that cannot be tampered with
+2. **Blockchain Integration**: Uses both Solana and Ethereum/Ink! smart contracts for storing receipt data
+3. **REST API**: Provides HTTP endpoints for creating and retrieving receipts
+4. **Immutable Records**: Once a receipt is stored on the blockchain, it cannot be modified, ensuring authenticity
 
-**ChainReceipt** is a blockchain-powered billing system that allows customers to securely track purchases, verify receipts, and manage loyalty rewards across retail stores. Built with **Rust** for high-performance backend operations and smart contracts, this project ensures transparency, reduces fraud, and simplifies returns/warranties for users.
+## **Tech Stack:**
 
----
+- **Backend**: Rust with Actix-Web framework
+- **Blockchain**: Dual support for:
+  - **Solana** (fast, low-cost transactions)
+  - **Ethereum/Ink!** (smart contracts in Rust)
+- **Serialization**: Borsh for blockchain data, Serde for JSON APIs
+- **Data Models**: Receipt and Item structs with blockchain-compatible serialization
 
-## ✨ Key Features
+## **How to Use It:**
 
-- **Immutable Receipts**: Purchase records (item, price, store, timestamp) stored on-chain.
-- **Customer Dashboard**: View and filter purchase history by store, date, or category.
-- **Dispute Resolution**: Smart contracts handle refunds/overcharges with tamper-proof evidence.
-- **Loyalty Rewards**: Automated points system with transparent redemption rules.
-- **Privacy Controls**: Optional Zero-Knowledge Proofs (ZKPs) for anonymous analytics.
+### **1. Run the Server:**
 
----
+Navigate to the project's root directory and run:
 
-## 🛠️ Tech Stack
-
-### Blockchain Layer
-
-- **Solana** (for fast transactions) or **Ethereum** (with Ink! smart contracts in Rust).
-- **Smart Contracts**: Rust-based (Solana’s Anchor or Ethereum’s Ink!).
-- **IPFS**: Secure receipt storage (if needed).
-
-### Backend (Rust)
-
-- **Framework**: Actix-Web or Axum.
-- **Database**: PostgreSQL (user data) + Redis (caching).
-- **APIs**: REST/GraphQL for frontend integration.
-
-### Frontend (Optional)
-
-- **Mobile**: Flutter/React Native (QR receipt scanning).
-- **Web**: Next.js/React (dashboard for analytics).
-
-### DevOps
-
-- **Docker + Kubernetes**: Scalable deployment.
-- **Prometheus + Grafana**: Performance monitoring.
-- **CI/CD**: GitHub Actions.
-
----
-
-## 📂 Project Structure
-
-```plaintext
-billing-project/
-├── blockchain/          # Smart contracts (Rust)
-├── backend/             # Actix-Web/Axum APIs
-├── frontend/            # Web/mobile UI (optional)
-├── docs/                # Whitepaper, architecture
-└── tests/               # Unit + integration tests
+```bash
+cargo run
 ```
+
+This starts a web server, typically on `http://127.0.0.1:8080`.
+
+### **2. API Endpoints:**
+
+**Create a Receipt (POST):**
+
+Endpoint: `POST /receipt`
+
+- Creates a new receipt and stores it on the blockchain.
+- Expects JSON data in the request body.
+- Returns the created receipt data as JSON.
+
+**Bash `curl` example:**
+
+```bash
+curl -X POST http://127.0.0.1:8080/receipt \
+-H "Content-Type: application/json" \
+-d '{
+        "items": [
+                {
+                        "name": "Laptop",
+                        "price": 1200.00,
+                        "quantity": 1
+                },
+                {
+                        "name": "Mouse",
+                        "price": 25.00,
+                        "quantity": 1
+                }
+        ],
+        "store_id": "STORE123"
+}'
+```
+
+**CMD `curl` example:**
+
+```cmd
+curl -X POST http://127.0.0.1:8080/receipt ^
+-H "Content-Type: application/json" ^
+-d "{ \"items\": [ { \"name\": \"Laptop\", \"price\": 1200.00, \"quantity\": 1 }, { \"name\": \"Mouse\", \"price\": 25.00, \"quantity\": 1 } ], \"store_id\": \"STORE123\" }"
+```
+
+**Get a Receipt (GET):**
+
+Endpoint: `GET /receipt/{id}`
+
+- Retrieves a receipt by its ID.
+- Returns sample receipt data if found, or an error if not.
+
+**Bash `curl` example (replace `your_receipt_id`):**
+
+```bash
+curl http://127.0.0.1:8080/receipt/your_receipt_id
+```
+
+**CMD `curl` example (replace `your_receipt_id`):**
+
+```cmd
+curl http://127.0.0.1:8080/receipt/your_receipt_id
+```
+
+### **3. Data Structure:**
+
+Each receipt contains:
+
+```rust
+{
+        "id": "unique_receipt_id", // Generated by the system
+        "items": [
+                {
+                        "name": "Product Name",
+                        "price": 29.99,
+                        "quantity": 1
+                }
+        ],
+        "total": 29.99, // Calculated by the system
+        "store_id": "store_identifier", 
+        "timestamp": 1672531200 // Generated by the system
+}
+```
+
+When creating a receipt, you typically only need to provide `items` and `store_id`. The `id`, `total`, and `timestamp` are usually generated by the server.
+
+## **Use Cases:**
+
+- **Retail Stores**: Digital receipt generation
+- **Customer Tracking**: Purchase history management
+- **Fraud Prevention**: Immutable proof of purchase
+- **Returns/Warranties**: Tamper-proof purchase verification
+- **Loyalty Programs**: Transparent reward tracking
+
+The project is currently in development with basic API functionality implemented and blockchain integration partially complete. The dual blockchain approach (Solana + Ethereum) provides flexibility for different use cases and cost considerations.
