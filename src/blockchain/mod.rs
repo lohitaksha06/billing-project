@@ -1,4 +1,4 @@
-use crate::models::{Receipt, Item};  // Update this line
+use crate::models::{Receipt, Item};
 use actix_web::{web, HttpResponse, Responder};
 
 pub async fn create_receipt() -> impl Responder {
@@ -11,9 +11,28 @@ pub async fn create_receipt() -> impl Responder {
                 quantity: 1,
             }
         ],
-        total: 99.99,
+        total: 50.99,
         store_id: "store_456".to_string(),
         timestamp: 1672531200,
     };
-    HttpResponse::Ok().json(sample_receipt)  // Return actual struct
+    HttpResponse::Ok().json(sample_receipt)
+}
+
+pub async fn get_receipt(path: web::Path<(String,)>) -> impl Responder {
+    let (receipt_id,) = path.into_inner();
+    // In a real app, you'd look this up from a database
+    let sample_receipt = Receipt {
+        id: receipt_id,
+        items: vec![
+            Item {
+                name: "maths textbook".to_string(),
+                price: 50.99,
+                quantity: 1,
+            }
+        ],
+        total: 50.99,
+        store_id: "store_456".to_string(),
+        timestamp: 1672531200,
+    };
+    HttpResponse::Ok().json(sample_receipt)
 }
