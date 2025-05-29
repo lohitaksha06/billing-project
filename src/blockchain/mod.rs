@@ -2,22 +2,19 @@ use crate::models::{Receipt, Item};
 use actix_web::{web, HttpResponse, Responder};
 
 pub async fn create_receipt() -> impl Responder {
-    let sample_receipt = Receipt {
-        id: "test_123".to_string(),
-        items: vec![
-            Item {
-                name: "maths textbook".to_string(),
-                price: 50.99,
-                quantity: 1,
-            }
-        ],
-        total: 50.99,
-        store_id: "store_456".to_string(),
-        timestamp: 1672531200,
-    };
-    HttpResponse::Ok().json(sample_receipt)
+    let receipt = Receipt { /* ... */ };
+    
+    // SOLANA: Send receipt to blockchain
+    let program_id = Pubkey::new_unique();
+    let instruction = Instruction::new_with_borsh(
+        program_id,
+        &receipt,
+        vec![],
+    );
+    
+    
+    HttpResponse::Ok().json(receipt)
 }
-
 pub async fn get_receipt(path: web::Path<(String,)>) -> impl Responder {
     let (receipt_id,) = path.into_inner();
     // In a real app, you'd look this up from a database
