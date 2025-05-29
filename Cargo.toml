@@ -4,12 +4,40 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-rand = "0.9.1"
+# Web Server
 actix-web = "4.0"
-actix-rt = "2.0"  # Runtime for async main
+actix-rt = "2.0"
 serde = { version = "1.0", features = ["derive"] }
-solana-program = "2.2.1"
-borsh = "1.5.7"
-ink_primitives = "5.1.1"
-ink_storage = "5.1.1"
-ink_env = "5.1.1"
+rand = "0.8.5"  # Updated to compatible version
+
+# Solana Blockchain
+solana-program = "1.17.1"  # Latest stable
+borsh = "1.2.0"            # Version matching Solana
+borsh-derive = "1.2.0"
+
+# Ethereum/Ink! Blockchain
+ink = { version = "5.1.1", default-features = false }
+scale = { package = "parity-scale-codec", version = "3", features = ["derive"] }
+ink-primitives = "5.1.1"
+ink-storage = "5.1.1"
+ink-env = "5.1.1"
+ink-codegen = "5.1.1"
+
+# Development/Testing
+tokio = { version = "1.0", features = ["full"] }
+thiserror = "1.0"  # Better error handling
+
+[features]
+default = ["ink/ink-metadata"]
+std = [
+    "ink/std",
+    "scale/std",
+    "ink-primitives/std",
+    "ink-storage/std",
+    "ink-env/std",
+    "ink-codegen/std"
+]
+
+[dev-dependencies]
+ink-e2e = "5.1.1"
+solana-program-test = "1.17.1"
