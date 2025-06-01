@@ -1,0 +1,26 @@
+{
+  "name": "billing-project",
+  "version": "1.0.0",
+  "description": "This is a **blockchain-based billing and receipt tracking system** called \"ChainReceipt\" that provides a decentralized, tamper-proof way to manage customer purchases and receipts. The project combines traditional web APIs with blockchain technology for immutable record-keeping.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lohitaksha06/billing-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lohitaksha06/billing-project/issues"
+  },
+  "homepage": "https://github.com/lohitaksha06/billing-project#readme",
+  "dependencies": {
+    "@polkadot/api": "^16.1.1",
+    "@polkadot/api-contract": "^16.1.1",
+    "@polkadot/util-crypto": "^13.5.1",
+    "fs": "^0.0.1-security"
+  }
+}
