@@ -1,9 +1,9 @@
 use crate::models::{Receipt, Item};
-use actix_web::{web, HttpResponse, Responder};
+use actix_web::{web, HttpResponse};
 use solana_program::{
     instruction::Instruction,
     pubkey::Pubkey,
-    system_instruction,
+    hash::Hash,
 };
 use solana_sdk::{
     signature::{Keypair, Signer},

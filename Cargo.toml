@@ -1,43 +1,39 @@
 [package]
 name = "billing-project"
 version = "0.1.0"
-edition = "2024"
+edition = "2021"  # Changed from 2024 to 2021 (standard edition)
 
 [dependencies]
 # Web Server
 actix-web = "4.0"
 actix-rt = "2.0"
 serde = { version = "1.0", features = ["derive"] }
-rand = "0.8.5"  # Updated to compatible version
+rand = "0.8.5"
 
-# Solana Blockchain
-solana-program = "1.17.1"  # Latest stable
-borsh = "1.2.0"            # Version matching Solana
-borsh-derive = "1.2.0"
+# Solana Blockchain - Using compatible version
+solana-program = "1.17"
+solana-sdk = "1.17"
+borsh = "0.10"
+borsh-derive = "0.10"
 
-# Ethereum/Ink! Blockchain
-ink = { version = "5.1.1", default-features = false }
-scale = { package = "parity-scale-codec", version = "3", features = ["derive"] }
-ink-primitives = "5.1.1"
-ink-storage = "5.1.1"
-ink-env = "5.1.1"
-ink-codegen = "5.1.1"
+# Ethereum/Ink! Blockchain - Using compatible versions (commented out due to dependency conflicts)
+# ink = { version = "4.3", default-features = false }
+# scale = { package = "parity-scale-codec", version = "3.0", features = ["derive"] }
+# scale-info = { version = "2.10", default-features = false, features = ["derive"], optional = true }
 
 # Development/Testing
 tokio = { version = "1.0", features = ["full"] }
-thiserror = "1.0"  # Better error handling
+thiserror = "1.0"
 
 [features]
-default = ["ink/ink-metadata"]
-std = [
-    "ink/std",
-    "scale/std",
-    "ink-primitives/std",
-    "ink-storage/std",
-    "ink-env/std",
-    "ink-codegen/std"
-]
+default = []
+# std = [
+#     "ink/std",
+#     "scale/std",
+#     "scale-info/std",
+# ]
+# ink-as-dependency = []
 
 [dev-dependencies]
-ink-e2e = "5.1.1"
-solana-program-test = "1.17.1"
+# ink_e2e = "4.3"
+solana-program-test = "1.17"

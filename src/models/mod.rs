@@ -10,7 +10,7 @@ pub struct Receipt {
     pub timestamp: i64,       // Unix timestamp
 }
 
-#[derive(Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct Item {
     pub name: String,
     pub price: f64,
