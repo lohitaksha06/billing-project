@@ -48,3 +48,21 @@ Cargo.lock        # For libraries, you might commit this, but for apps, usually 
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+# Node.js specific
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.npm
+.yarn
+.pnp.*
+package-lock.json
+yarn.lock
+.node_repl_history
+.next/
+out/
+dist/
+build/
+.cache/
